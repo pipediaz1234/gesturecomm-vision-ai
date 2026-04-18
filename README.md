@@ -7,6 +7,7 @@
 ## Tabla de Contenidos
 
 - [Descripción del Proyecto](#descripción-del-proyecto)
+- [Capturas del Sistema](#capturas-del-sistema)
 - [Código Fuente](#código-fuente)
 - [Demo y Flujo del Sistema](#demo-y-flujo-del-sistema)
 - [Arquitectura del Sistema](#arquitectura-del-sistema)
@@ -37,6 +38,38 @@ Este proyecto aborda una brecha crítica en la accesibilidad cotidiana, aplicand
 - Comunicación bidireccional a través de STT para las respuestas del vendedor
 - Interfaz gráfica interactiva con selección de cantidades mediante gestos
 - Control de flujo de interacción basado en máquina de estados
+
+---
+
+## Capturas del Sistema
+
+### Arquitectura visual de la interfaz
+
+<img width="831" height="565" alt="image" src="https://github.com/user-attachments/assets/d3eb9623-c2d3-4c89-a4c3-8550ee0ef3ad" />
+
+---
+
+### Detección de gesto y despliegue de menú en tiempo real
+
+<img width="915" height="529" alt="image" src="https://github.com/user-attachments/assets/eba361c4-a8f6-47cb-aed6-215a4fa36cf6" />
+
+---
+
+### Selección de cantidad mediante gesto con dedo índice
+
+<img width="714" height="378" alt="image" src="https://github.com/user-attachments/assets/d890e464-1d58-4ee7-9c7f-4efacd6b8a2d" />
+
+---
+
+### Panel de cliente — gesto reconocido e historial de conversación
+
+<img width="583" height="713" alt="image" src="https://github.com/user-attachments/assets/23cb74cf-0e0f-4909-acdc-dcd141ff2f93" />
+
+---
+
+### Respuesta del vendedor mostrada en pantalla
+
+<img width="915" height="489" alt="image" src="https://github.com/user-attachments/assets/2a453b01-262d-42b8-bb93-46a4598bbc76" />
 
 ---
 
@@ -84,14 +117,14 @@ El sistema opera a través del siguiente flujo de interacción:
 [Transcripción mostrada en pantalla para el usuario]
 ```
 
-**Ejemplo de interacción:**
+**Ejemplo de interacción real:**
 
-1. El usuario realiza un gesto asociado a un producto específico (ej. "pan").
-2. El sistema detecta el gesto, lo clasifica y reproduce: *"Quisiera comprar pan."*
-3. El vendedor responde verbalmente: *"¿Cuántas unidades desea?"*
-4. El sistema captura la voz y muestra en pantalla: **"¿Cuántas unidades desea?"**
-5. El usuario selecciona la cantidad mediante un gesto numérico (dedos extendidos).
-6. El sistema sintetiza: *"Quisiera 3 unidades."*
+1. El usuario realiza el gesto asociado a **"Bebidas"**.
+2. El sistema detecta el gesto, lo clasifica y reproduce: *"Quisiera una bebida por favor."*
+3. El vendedor responde verbalmente: *"Claro, enseguida."*
+4. El sistema captura la voz y muestra en pantalla: **"Claro, enseguida."**
+5. El usuario selecciona la cantidad señalando con el dedo índice sobre el número deseado (1 al 5).
+6. El sistema sintetiza: *"Cliente eligió: 2 (dos)."*
 
 ---
 
@@ -130,10 +163,13 @@ El sistema opera a través del siguiente flujo de interacción:
 **Diagrama de máquina de estados:**
 
 ```
-[EN ESPERA] ──► [DETECTANDO] ──► [GESTO RECONOCIDO] ──► [HABLANDO]
-                    │                                        │
-                    └────────────────────────────────────────┘
-                            [ESCUCHANDO] ──► [MOSTRANDO RESPUESTA]
+[EN ESPERA] ──► [DETECTANDO] ──► [GESTO RECONOCIDO] ──► [REPRODUCIENDO]
+                    │                                          │
+                    └──────────────────────────────────────────┘
+                         [CAPTURANDO VOZ] ──► [MOSTRANDO RESPUESTA]
+                                  │
+                                  ▼
+                        [SELECCIONANDO NÚMERO]
 ```
 
 ---
@@ -220,7 +256,7 @@ Una vez iniciada la aplicación, se presenta una interfaz gráfica con la transm
 **Usuario (persona con discapacidad auditiva):**
 - Posicione la mano dentro del encuadre de la cámara.
 - Realice un gesto predefinido correspondiente a un producto o acción.
-- Use gestos numéricos con los dedos para indicar la cantidad cuando el sistema lo solicite.
+- Señale con el dedo índice el número deseado (1 al 5) para indicar la cantidad.
 - Lea la respuesta transcrita del vendedor en la pantalla.
 
 **Vendedor:**
@@ -228,16 +264,17 @@ Una vez iniciada la aplicación, se presenta una interfaz gráfica con la transm
 - Responda verbalmente a través del micrófono.
 - Visualice en pantalla la etiqueta del gesto detectado como referencia.
 
-**Gestos soportados (conjunto por defecto):**
+**Gestos soportados:**
 
 | Gesto | Intención Mapeada |
 |---|---|
-| Mano abierta | "Hola / Saludo" |
-| Dedo índice arriba | "Quiero una unidad" |
-| Dos dedos arriba | "Quiero dos unidades" |
-| Puño cerrado | "Eso es todo / Finalizar" |
-| Pulgar arriba | "Sí / Confirmar" |
-| Pulgar abajo | "No / Cancelar" |
+| Gesto MENÚ | "¿Me puede mostrar el menú?" |
+| Gesto BEBIDAS | "Quisiera una bebida por favor." |
+| Gesto PAPAS | "Quisiera unas papas por favor." |
+| Gesto DULCES | "Quisiera unos dulces por favor." |
+| Gesto CHOCOLATE | "Quisiera chocolate por favor." |
+| Gesto COMPRAR | "Deseo comprar algo." |
+| Dedo índice sobre número | Selección de cantidad (1 al 5) |
 
 > El conjunto de gestos es configurable y puede ampliarse mediante el archivo de configuración del clasificador.
 
@@ -249,34 +286,18 @@ Una vez iniciada la aplicación, se presenta una interfaz gráfica con la transm
 gesturecomm-vision-ai/
 │
 ├── GestureComm2/
-│   └── sistema_comunicacion.py   # Módulo central del sistema (ver código)
-│
-├── requirements.txt
-├── README.md
-│
-├── core/
-│   ├── captura.py                # Adquisición de fotogramas de cámara
-│   ├── detector_manos.py         # Detección de puntos clave con MediaPipe
-│   ├── clasificador_gestos.py    # Lógica de reconocimiento de gestos
-│   └── maquina_estados.py        # Controlador del flujo de interacción
-│
-├── modulos/
-│   ├── modulo_tts.py             # Motor de texto a voz
-│   └── modulo_stt.py             # Motor de voz a texto
-│
-├── gui/
-│   └── interfaz.py               # Diseño y lógica de la interfaz Tkinter
-│
-├── config/
-│   └── gestos.json               # Configuración de mapeo gesto-intención
+│   └── sistema_comunicacion.py   # Módulo central del sistema
 │
 ├── assets/
-│   └── iconos/                   # Iconos y recursos visuales de la UI
+│   ├── interfaz-general.png      # Captura de la interfaz general
+│   ├── deteccion-menu.png        # Captura de detección de gesto MENU
+│   ├── seleccion-cantidad.png    # Captura de selección numérica
+│   ├── panel-cliente.png         # Captura del panel de cliente
+│   └── respuesta-vendedor.png    # Captura de respuesta del vendedor
 │
-└── tests/
-    ├── test_detector.py
-    ├── test_clasificador.py
-    └── test_tts.py
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
 ---
@@ -337,7 +358,8 @@ Desarrollado como proyecto universitario de ingeniería de software y visión po
 Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
 
 ```
-Licencia MIT — libre para usar, modificar y distribuir con atribución.
+MIT License — Copyright (c) 2026 Andrés Felipe Díaz Campos
+Libre para usar, modificar y distribuir con atribución.
 ```
 
 ---
