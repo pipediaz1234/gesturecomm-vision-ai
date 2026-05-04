@@ -342,6 +342,61 @@ La validación se realizó con múltiples usuarios ejecutando secuencias de gest
 ---
 
 ## Autores
+# GestureConnect — Sistema Inteligente de Reconocimiento de Gestos para Comunicación Inclusiva
+
+> Sistema basado en visión por computador e inteligencia artificial que facilita la comunicación bidireccional en tiempo real entre personas con discapacidad auditiva y entornos comerciales, mediante reconocimiento de gestos, síntesis de voz (TTS) y transcripción de voz a texto (STT).
+
+---
+
+## 🌐 Demo del Sistema
+
+🔗 **Aplicación Web (Frontend en producción):**  
+👉 https://gesturecomm.netlify.app/
+
+> ⚠️ Nota: Para un funcionamiento correcto, habilite permisos de cámara y micrófono en el navegador.
+
+---
+
+## 🖼️ Vista del Aplicativo
+**IMAGEN DEL INICIO DE LA PAGINA**
+<img width="532" height="960" alt="image" src="https://github.com/user-attachments/assets/7e36c95a-ce94-426b-96e8-9fc0f1398263" />
+---
+**IMAGEN DE LA FUNCION DEL SISTEMA COMO CLIENTE**
+<img width="939" height="771" alt="image" src="https://github.com/user-attachments/assets/f25756de-f9d0-4bd6-8469-6eaed4e6934a" />
+---
+**FUNCION DEL SISTEMA COMO ADMINISTRADOR**
+<img width="954" height="1022" alt="image" src="https://github.com/user-attachments/assets/38b638b5-9c38-43ac-9f93-83af1e874572" />
+
+---
+
+## 📌 Descripción del Proyecto
+
+**GestureConnect** es una solución tecnológica orientada a la inclusión social que permite la comunicación fluida entre personas con discapacidad auditiva y personal de atención en entornos comerciales.
+
+El sistema emplea técnicas avanzadas de **visión por computador, aprendizaje automático y procesamiento de lenguaje natural**, capturando gestos manuales a través de una cámara, interpretándolos y transformándolos en mensajes de voz. A su vez, incorpora un módulo de reconocimiento de voz que transcribe las respuestas del interlocutor en texto visible.
+
+Esto permite una interacción completamente bidireccional, accesible y en tiempo real.
+
+---
+
+## 🎯 Objetivo General
+
+Desarrollar un sistema inteligente basado en visión por computador que permita la interpretación automática de gestos manuales para facilitar la comunicación accesible.
+
+---
+
+## 🎯 Objetivos Específicos
+
+- Implementar detección de manos en tiempo real mediante MediaPipe.
+- Diseñar un modelo de reconocimiento de gestos basado en keypoints.
+- Integrar síntesis de voz (TTS) para la salida de información.
+- Implementar reconocimiento de voz (STT) para entrada hablada.
+- Desarrollar una interfaz gráfica interactiva.
+- Evaluar el rendimiento mediante métricas cuantitativas.
+
+---
+
+## 🧠 Funcionamiento del Sistema
 
 Desarrollado como proyecto universitario de ingeniería de software y visión por computador.
 
